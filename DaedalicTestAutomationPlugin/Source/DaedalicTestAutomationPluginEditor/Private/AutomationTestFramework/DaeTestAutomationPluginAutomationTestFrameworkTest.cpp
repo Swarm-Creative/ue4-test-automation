@@ -13,7 +13,7 @@ FDaeTestAutomationPluginAutomationTestFrameworkTest::
     // Test is automatically registered in FAutomationTestBase base class constructor.
 }
 
-uint32 FDaeTestAutomationPluginAutomationTestFrameworkTest::GetTestFlags() const
+EAutomationTestFlags FDaeTestAutomationPluginAutomationTestFrameworkTest::GetTestFlags() const
 {
     return EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter;
 }
