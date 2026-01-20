@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/github/license/DaedalicEntertainment/ue4-test-automation.svg?maxAge=2592000)](https://github.com/DaedalicEntertainment/ue4-test-automation/blob/develop/LICENSE)
 
-The _Daedalic Test Automation Plugin_ facilitates creating and running integration tests with the [Gauntlet Automation Framework](https://docs.unrealengine.com/en-US/Programming/Automation/Gauntlet/index.html) of [Unreal Engine 4](https://www.unrealengine.com).
+The _Daedalic Test Automation Plugin_ facilitates creating and running integration tests with the [Gauntlet Automation Framework](https://docs.unrealengine.com/en-US/Programming/Automation/Gauntlet/index.html) of [Unreal Engine 5](https://www.unrealengine.com).
 
 Automated testing, when applied instead of or in addition to manual testing, provides multiple benefits:
 
