@@ -83,3 +83,5 @@ TestEnvironment/Saved/
 TestEnvironment/DerivedDataCache/
 TestEnvironment/Build/Scripts/DaedalicTestAutomationPlugin.Automation/obj/
 TestEnvironment/Build/Scripts/DaedalicTestAutomationPlugin.Automation/DaedalicTestAutomationPlugin.Automation.csproj.props
+
+PluginBuild/

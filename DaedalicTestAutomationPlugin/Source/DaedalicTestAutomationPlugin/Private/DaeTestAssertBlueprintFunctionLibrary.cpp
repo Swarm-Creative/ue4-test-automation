@@ -569,7 +569,7 @@ void UDaeTestAssertBlueprintFunctionLibrary::AssertImageIsSet(UImage* Image, con
         return;
     }
 
-    if (!IsValid(Image->Brush.GetResourceObject()))
+    if (!IsValid(Image->GetBrush().GetResourceObject()))
     {
         FString Message = FString::Format(TEXT("Assertion failed - {0} - Image brush has no "
                                                "resource object (e.g. texture or material)"),
