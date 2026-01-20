@@ -2,7 +2,7 @@
 #include "DaeTestPerformanceBudgetResultData.h"
 #include "DaeTestPerformanceBudgetViolation.h"
 #include "DaeTestLogCategory.h"
-#include <HAL/PlatformFilemanager.h>
+#include <HAL/PlatformFileManager.h>
 #include <Interfaces/IPluginManager.h>
 #include <Kismet/KismetTextLibrary.h>
 
@@ -136,9 +136,12 @@ void FDaeTestReportWriterPerformance::WriteReport(const TArray<FDaeTestSuiteResu
 
 FString FDaeTestReportWriterPerformance::FormatTime(float Time) const
 {
-    return UKismetTextLibrary::Conv_FloatToText(Time, ERoundingMode::HalfToEven, false, false, 1,
-                                                324, 2, 2)
-        .ToString();
+    // UE 5.7: Conv_FloatToText renamed to Conv_DoubleToText with different signature
+    // Using FText::AsNumber for simpler formatting
+    FNumberFormattingOptions Options;
+    Options.MinimumFractionalDigits = 2;
+    Options.MaximumFractionalDigits = 2;
+    return FText::AsNumber(Time, &Options).ToString();
 }
 
 FString FDaeTestReportWriterPerformance::FormatLocation(const FVector& Location) const

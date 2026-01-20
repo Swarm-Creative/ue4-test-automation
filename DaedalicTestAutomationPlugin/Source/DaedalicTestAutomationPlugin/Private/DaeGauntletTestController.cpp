@@ -6,7 +6,7 @@
 #include "DaeTestReportWriter.h"
 #include "DaeTestReportWriterSet.h"
 #include "DaeTestSuiteActor.h"
-#include <AssetRegistryModule.h>
+#include <AssetRegistry/AssetRegistryModule.h>
 #include <EngineUtils.h>
 #include <Engine/AssetManager.h>
 #include <Misc/FileHelper.h>
@@ -30,13 +30,13 @@ void UDaeGauntletTestController::OnInit()
     TArray<FAssetData> AssetDataArray;
 
     AssetRegistryModule.Get().SearchAllAssets(true);
-    AssetRegistryModule.Get().GetAssetsByClass(UWorld::StaticClass()->GetFName(), AssetDataArray);
+    AssetRegistryModule.Get().GetAssetsByClass(UWorld::StaticClass()->GetClassPathName(), AssetDataArray);
 
     for (auto ObjIter = AssetDataArray.CreateConstIterator(); ObjIter; ++ObjIter)
     {
         const FAssetData& AssetData = *ObjIter;
 
-        FString FileName = FPackageName::LongPackageNameToFilename(AssetData.ObjectPath.ToString());
+        FString FileName = FPackageName::LongPackageNameToFilename(AssetData.GetSoftObjectPath().ToString());
         FName MapName = AssetData.AssetName;
 
         bool bIsTestMap = TestAutomationPluginSettings->IsTestMap(FileName, MapName);

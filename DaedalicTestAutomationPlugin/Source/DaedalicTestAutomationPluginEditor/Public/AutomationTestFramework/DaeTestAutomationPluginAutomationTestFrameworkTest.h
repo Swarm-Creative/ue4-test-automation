@@ -10,7 +10,7 @@ class FDaeTestAutomationPluginAutomationTestFrameworkTest : FAutomationTestBase
 public:
     FDaeTestAutomationPluginAutomationTestFrameworkTest(const FString& InMapName);
 
-    virtual uint32 GetTestFlags() const override;
+    virtual EAutomationTestFlags GetTestFlags() const override;
     virtual uint32 GetRequiredDeviceNum() const override;
     virtual FString GetTestSourceFileName() const override;
     virtual int32 GetTestSourceFileLine() const override;
