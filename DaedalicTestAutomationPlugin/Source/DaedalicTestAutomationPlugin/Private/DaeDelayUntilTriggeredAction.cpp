@@ -21,6 +21,6 @@ void FDaeDelayUntilTriggeredAction::UpdateOperation(FLatentResponse& Response)
 FString FDaeDelayUntilTriggeredAction::GetDescription() const
 {
     FString TriggerBoxName = IsValid(TestTriggerBox) ? TestTriggerBox->GetName() : TEXT("nullptr");
-    return FString::Printf(TEXT("Delay (until {0} was triggered)"), *TriggerBoxName);
+    return FString::Printf(TEXT("Delay (until %s was triggered)"), *TriggerBoxName);
 }
 #endif

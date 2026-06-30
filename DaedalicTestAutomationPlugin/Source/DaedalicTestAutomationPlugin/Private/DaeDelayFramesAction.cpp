@@ -19,6 +19,6 @@ void FDaeDelayFramesAction::UpdateOperation(FLatentResponse& Response)
 #if WITH_EDITOR
 FString FDaeDelayFramesAction::GetDescription() const
 {
-    return FString::Printf(TEXT("Delay ({0} frames left)"), FramesRemaining);
+    return FString::Printf(TEXT("Delay (%d frames left)"), FramesRemaining);
 }
 #endif
