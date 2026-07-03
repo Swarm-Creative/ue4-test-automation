@@ -49,6 +49,12 @@ bool FDaeTestAutomationPluginAutomationTestFrameworkTest::RunTest(const FString&
 {
     UE_LOG(LogDaeTestEditor, Log, TEXT("Running test for map: %s"), *MapName);
 
+    // This test object is registered once and reused for every run of this map in the editor
+    // session. A suite pointer left over from a previous run reports !IsRunning(), which makes
+    // FDaeTestAutomationPluginWaitForEndOfTestSuite complete immediately and the run "pass"
+    // without ever reaching its asserts.
+    Context.CurrentTestSuite = nullptr;
+
     ADD_LATENT_AUTOMATION_COMMAND(FDaeTestAutomationPluginApplyConsoleVariables(Context));
     ADD_LATENT_AUTOMATION_COMMAND(FEditorLoadMap(MapName));
     ADD_LATENT_AUTOMATION_COMMAND(FStartPIECommand(false));
