@@ -1,23 +1,33 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    When UAT compiles automation script modules it passes EngineDir as a global MSBuild property
+    (Engine/Source/Programs/Shared/EpicGames.MsBuild/CsProjBuilder.cs), so this project locates the
+    engine correctly wherever it is installed - source build or launcher install, any directory.
+    The fallback below only serves direct IDE/dotnet builds and assumes the classic source layout
+    (this folder at <Project>/Plugins/DaedalicTestAutomationPlugin.Automation/ with the project
+    checked out beside Engine/); adjust it if your layout differs.
+
+    Instead of hardcoding <TargetFramework>, inherit it from the engine's shared props
+    (UnrealEngine.csproj.props sets the current TFM + RollForward). This mirrors every
+    Engine/Source/Programs/AutomationTool/*.Automation.csproj and tracks the engine on upgrades.
+  -->
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <EngineDir Condition="'$(EngineDir)' == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\..\..\Engine'))</EngineDir>
+  </PropertyGroup>
+
+  <Import Project="$(EngineDir)\Source\Programs\Shared\UnrealEngine.csproj.props" />
+
+  <PropertyGroup>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-    <Configurations>Debug;Release;Development</Configurations>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <RootNamespace>DaedalicTestAutomationPlugin.Automation</RootNamespace>
+    <AssemblyName>DaedalicTestAutomationPlugin.Automation</AssemblyName>
+    <!-- Emit alongside the engine's automation-script DLLs so UAT discovers/loads it; the SDK appends /<TFM>/. -->
+    <OutputPath Condition="'$(ArtifactsPath)' == ''">$(EngineDir)\Binaries\DotNET\AutomationTool\AutomationScripts\DaedalicTestAutomationPlugin</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\..\..\Binaries\DotNET\AutomationScripts\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Development|AnyCPU' ">
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Binaries\DotNET\AutomationScripts\</OutputPath>
-  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Engine\Source\Programs\AutomationTool\Gauntlet\Gauntlet.Automation.csproj" />
+    <ProjectReference Include="$(EngineDir)\Source\Programs\AutomationTool\Gauntlet\Gauntlet.Automation.csproj" />
   </ItemGroup>
 </Project>
